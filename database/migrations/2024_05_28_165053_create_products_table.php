@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title')->unique();
             $table->foreignIdFor(\App\Models\Category::class)->constrained();
-            $table->integer('price');
+            $table->unsignedMediumInteger('price');
             $table->text('description');
             $table->string('image_url');
             $table->unsignedMediumInteger('likes')->default(0);
