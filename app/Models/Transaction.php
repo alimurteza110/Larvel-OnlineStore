@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TransactionStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,9 +10,13 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    public function cart()
+    protected $casts = [
+        'status' => TransactionStatusEnum::class
+    ];
+
+    public function carts()
     {
-        return $this->belongsTo(Cart::class);
+        return  $this->hasMany(Cart::class);
     }
 
     public function user()

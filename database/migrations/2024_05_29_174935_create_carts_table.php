@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Product::class)->constrained();
+            $table->foreignIdFor(\App\Models\User::class)->constrained();
+            $table->foreignIdFor(\App\Models\Transaction::class)->nullable()->constrained();
             $table->unsignedInteger('price');
             $table->unsignedSmallInteger('amount');
             $table->timestamps();

@@ -52,8 +52,13 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    public function teansactions()
+    public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
     }
 }
