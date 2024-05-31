@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('title')->unique();
-            $table->foreignId(\App\Models\Category::class)->constrained();
+            $table->foreignIdFor(\App\Models\Category::class)->constrained();
             $table->integer('price');
             $table->text('description');
             $table->string('image_url');

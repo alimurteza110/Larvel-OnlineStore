@@ -25,8 +25,8 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    protected function cart()
+    protected function carts()
     {
-
+        return $this->hasMany(Cart::class);
     }
 }

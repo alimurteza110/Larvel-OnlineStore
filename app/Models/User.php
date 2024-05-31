@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    protected function teansactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

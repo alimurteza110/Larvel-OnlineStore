@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
+
+    protected function cart()
+    {
+        return $this->belongsTo(Cart::class);
+    }
+
+    protected function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
