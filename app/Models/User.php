@@ -47,12 +47,12 @@ class User extends Authenticatable
         ];
     }
 
-    protected function comments()
+    public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-    protected function teansactions()
+    public function teansactions()
     {
         return $this->hasMany(Transaction::class);
     }

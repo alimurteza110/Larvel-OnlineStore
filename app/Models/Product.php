@@ -19,12 +19,12 @@ class Product extends Model
         'category_id',
     ];
 
-    protected function category()
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    protected function carts()
+    public function carts()
     {
         return $this->hasMany(Cart::class);
     }

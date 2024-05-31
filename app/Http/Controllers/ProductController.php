@@ -14,7 +14,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return Response::json($products)->setStatusCode(200);
+        return Response::json($products->load('category'))->setStatusCode(200);
     }
 
     /**
@@ -41,7 +41,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return Response::json($product)->setStatusCode(200);
+        return Response::json($product->load('category'))->setStatusCode(200);
     }
 
     /**

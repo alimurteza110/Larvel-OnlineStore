@@ -15,7 +15,7 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
 
-        return Response::json($categories)->setStatusCode(200);
+        return Response::json($categories->load('products'))->setStatusCode(200);
     }
 
     /**
@@ -37,7 +37,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return Response::json($category)->setStatusCode(200);
+        return Response::json($category->load('products'))->setStatusCode(200);
     }
 
     /**
@@ -58,6 +58,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $category->products()->delete();
         $category->delete();
 
         return Response::json($category)->setStatusCode(204);

@@ -13,12 +13,12 @@ class Comment extends Model
         'content',
     ];
 
-    protected function user()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    protected function replies()
+    public function replies()
     {
         return $this->hasMany(Comment::class, 'comment_id');
     }

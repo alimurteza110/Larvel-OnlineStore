@@ -48,5 +48,7 @@ Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])-
 // apiResource of comments //
 
 Route::post('/comments', function (Request $request){
-    //
+    $attribute = $request->validate([
+       //
+    ]);
 });
