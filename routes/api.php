@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProductController;
 use App\Models\Category;
 use App\Models\Comment;
@@ -25,37 +26,49 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 // apiResource of products //
 
-Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products', [ProductController::class, 'index'])
+    ->middleware('auth:sanctum');
 
-Route::get('/products/{product}', [ProductController::class, 'show']);
+Route::get('/products/{product}', [ProductController::class, 'show'])
+    ->middleware('auth:sanctum');
 
-Route::post('/products', [ProductController::class, 'store'])->middleware('auth:sanctum', 'role:admin');
+Route::post('/products', [ProductController::class, 'store'])
+    ->middleware('auth:sanctum', 'role:admin');
 
-Route::patch('/products/{product}', [ProductController::class, 'update'])->middleware('auth:sanctum', 'role:admin');
+Route::patch('/products/{product}', [ProductController::class, 'update'])
+    ->middleware('auth:sanctum', 'role:admin');
 
-Route::delete('/products/{product}', [ProductController::class, 'destroy'])->middleware('auth:sanctum', 'role:admin');
+Route::delete('/products/{product}', [ProductController::class, 'destroy'])
+    ->middleware('auth:sanctum', 'role:admin');
 
 // apiResource of categories //
 
-Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/categories', [CategoryController::class, 'index'])
+    ->middleware('auth:sanctum');
 
-Route::get('/categories/{category}', [CategoryController::class, 'show']);
+Route::get('/categories/{category}', [CategoryController::class, 'show'])
+    ->middleware('auth:sanctum');
 
-Route::post('/categories', [CategoryController::class, 'store'])->middleware('auth:sanctum', 'role:admin');
+Route::post('/categories', [CategoryController::class, 'store'])
+    ->middleware('auth:sanctum', 'role:admin');
 
-Route::patch('/categories/{category}', [CategoryController::class, 'update'])->middleware('auth:sanctum', 'role:admin');
+Route::patch('/categories/{category}', [CategoryController::class, 'update'])
+    ->middleware('auth:sanctum', 'role:admin');
 
-Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->middleware('auth:sanctum', 'role:admin');
+Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])
+    ->middleware('auth:sanctum', 'role:admin');
 
 // apiResource of comments //
 
-Route::post('/comments', function (Request $request){
-    $attribute = $request->validate([
-        'content' => 'required|string|between:10,255',
-        'comment_id' => 'sometimes|int'
-    ]);
+Route::get('/comments', [CommentController::class, 'index'])
+    ->middleware('auth:sanctum', 'role:admin');
 
-    $comment = Auth::user()->comments()->create($attribute);
+Route::get('/comments/{comment}', [CommentController::class, 'show'])
+    ->middleware('auth:sanctum', 'role:admin');
 
-    return Response::json($comment)->setStatusCode(201);
-})->middleware('auth:sanctum');
+Route::post('/comments', [CommentController::class, 'store'])
+    ->middleware('auth:sanctum');
+
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
+    ->middleware('auth:sanctum', 'role:admin');
+

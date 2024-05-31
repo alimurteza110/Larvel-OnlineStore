@@ -28,4 +28,9 @@ class Product extends Model
     {
         return $this->hasMany(Cart::class);
     }
+
+    public function comments()
+    {
+        $this->hasMany(Comment::class);
+    }
 }

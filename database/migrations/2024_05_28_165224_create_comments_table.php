@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('content');
             $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->foreignIdFor(\App\Models\Comment::class)->nullable()->constrained();
+            $table->foreignIdFor(\App\Models\Product::class)->constrained();
             $table->timestamps();
         });
     }

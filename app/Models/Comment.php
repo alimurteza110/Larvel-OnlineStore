@@ -11,6 +11,8 @@ class Comment extends Model
 
     protected $fillable = [
         'content',
+        'comment_id',
+        'product_id'
     ];
 
     public function user()
@@ -21,5 +23,10 @@ class Comment extends Model
     public function replies()
     {
         return $this->hasMany(Comment::class, 'comment_id');
+    }
+
+    public function produtc()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

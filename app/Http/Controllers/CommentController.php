@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 class CommentController extends Controller
 {
@@ -12,7 +15,9 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::all();
+
+        return Response::json($comments)->setStatusCode(200);
     }
 
     /**
@@ -20,7 +25,15 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attribute = $request->validate([
+            'content' => 'required|string|between:10,255',
+            'comment_id' => 'sometimes|int',
+            'product_id' => 'required|int'
+        ]);
+
+        $comment = Auth::user()->comments()->create($attribute);
+
+        return Response::json($comment)->setStatusCode(201);
     }
 
     /**
@@ -28,7 +41,9 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        $comment->get();
+
+        return Response::json($comment)->setStatusCode(200);
     }
 
     /**
@@ -44,6 +59,8 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+
+        return Response::json($comment)->setStatusCode(204);
     }
 }
