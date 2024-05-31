@@ -5,9 +5,11 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +51,11 @@ Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])-
 
 Route::post('/comments', function (Request $request){
     $attribute = $request->validate([
-       //
+        'content' => 'required|string|between:10,255',
+        'comment_id' => 'sometimes|int'
     ]);
-});
+
+    $comment = Auth::user()->comments()->create($attribute);
+
+    return Response::json($comment)->setStatusCode(201);
+})->middleware('auth:sanctum');
