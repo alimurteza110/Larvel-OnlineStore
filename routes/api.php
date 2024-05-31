@@ -72,3 +72,5 @@ Route::post('/comments', [CommentController::class, 'store'])
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
     ->middleware('auth:sanctum', 'role:admin');
 
+// apiResource of transactions //
+
