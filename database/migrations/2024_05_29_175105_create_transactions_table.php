@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
-            $table->string('status');
+            $table->string('status')->default(\App\Enums\TransactionStatusEnum::Shopping->value);
             $table->timestamps();
         });
     }
