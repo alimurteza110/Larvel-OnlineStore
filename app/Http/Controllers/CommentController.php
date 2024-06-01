@@ -17,7 +17,7 @@ class CommentController extends Controller
     {
         $comments = Comment::all();
 
-        return Response::json($comments)->setStatusCode(200);
+        return Response::json($comments->load('product'))->setStatusCode(200);
     }
 
     /**

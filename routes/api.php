@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Product;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -72,5 +75,18 @@ Route::post('/comments', [CommentController::class, 'store'])
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
     ->middleware('auth:sanctum', 'role:admin');
 
+// apiResource of carts //
+
+Route::post('/carts', [CartController::class, 'store'])
+    ->middleware('auth:sanctum');
+
+Route::get('/carts', [CartController::class, 'index'])
+    ->middleware('auth:sanctum');
+
 // apiResource of transactions //
 
+Route::post('/transaction', [TransactionController::class, 'store'])
+    ->middleware('auth:sanctum');
+
+Route::get('/transactions', [TransactionController::class, 'index'])
+    ->middleware('auth:sanctum');

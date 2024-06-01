@@ -22,7 +22,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $attribute = $request->validate([
+        $request->validate([
             'title' => 'required|string|between:4,200|unique:products',
             'price' => 'required|int',
             'category_id' => 'required|int',
@@ -31,9 +31,23 @@ class ProductController extends Controller
             'likes' => 'sometimes|int',
             'count' => 'required|int',
         ]);
-        $product = Product::create($attribute);
+        if($request->count == 0){
+            $status = 'UNAVAILABLE';
+        } else {
+            $status = 'AVAILABLE';
+        }
+        $attribute = Product::create([
+            'title' => $request->title,
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+            'description' => $request->description,
+            'image_url' => $request->image_url,
+            'likes' => $request->likes,
+            'count' => $request->count,
+            'status' => $status,
+        ]);
 
-        return Response::json($product)->setStatusCode(201);
+        return Response::json($attribute)->setStatusCode(201);
     }
 
     /**

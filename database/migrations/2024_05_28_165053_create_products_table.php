@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('image_url');
             $table->unsignedMediumInteger('likes')->default(0);
             $table->unsignedSmallInteger('count');
+            $table->string('status')->default('UNAVAILABLE');
             $table->timestamps();
         });
     }

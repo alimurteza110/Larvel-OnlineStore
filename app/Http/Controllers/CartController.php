@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 class CartController extends Controller
 {
@@ -12,7 +15,11 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $cart = Auth::user()->carts()
+            ->whereNull('transaction_id')
+            ->get();
+
+        return Response::json($cart)->setStatusCode(200);
     }
 
     /**
@@ -20,7 +27,21 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'product_id' => 'required|integer|exists:products,id',
+            'amount' => 'required|integer|max:10,'
+        ]);
+
+        $productPrice = Product::find($request->product_id)->price;
+        $price = $request->amount * $productPrice;
+
+        $cart = Auth::user()->carts()->create([
+            'product_id' => $request->product_id,
+            'amount' => $request->amount,
+            'price' => $price,
+        ]);
+
+        return Response::json($cart)->setStatusCode(201);
     }
 
     /**

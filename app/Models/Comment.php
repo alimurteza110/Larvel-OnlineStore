@@ -25,7 +25,7 @@ class Comment extends Model
         return $this->hasMany(Comment::class, 'comment_id');
     }
 
-    public function produtc()
+    public function product()
     {
         return $this->belongsTo(Product::class);
     }
